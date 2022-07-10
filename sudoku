@@ -1,0 +1,14 @@
+def sudoku(puzzle):
+    while 0 in set(sum((puzzle),[])):
+        for y, gorizontal in enumerate(puzzle):
+            v1, v2 = (y < 3) * [0, 3] + (3 <= y < 6) * [3, 6] + (6 <= y) * [6, 10]
+            for x,numb in enumerate(gorizontal):
+                h1, h2 = (x < 3) * [0, 3] + (3 <= x < 6) * [3, 6] + (6 <= x) * [6, 10]
+                if numb == 0:
+                    vertical = [n[x] for n in puzzle]
+                    square = sum([i[h1:h2] for i in puzzle[v1:v2]],[])
+                    result = set(vertical+gorizontal+square)
+                    if len(result)==9:
+                        find_numb=[i for i in range(10) if i not in result][0]
+                        puzzle[y][x]=find_numb
+    return puzzle
